@@ -1,0 +1,4 @@
+.idea
+.git
+terraform/.terraform
+terraform/.terraform.lock.hcl
