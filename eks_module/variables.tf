@@ -25,7 +25,7 @@ variable "dns_hostnames" {
 
 variable "cidr_block" {
   description = "Default cidr block for the vpc"
-  type = "string"
+  type = string
   default = "10.0.0.0/16"
 }
 
@@ -47,7 +47,7 @@ variable "public_subnets" {
 
 # EKS Build Variables
 variable "eks_version" {
-  type = "string"
+  type = string
   description = "EKS Cluster Version"
 }
 
