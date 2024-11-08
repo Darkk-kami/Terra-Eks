@@ -1,10 +1,10 @@
 module "eks" {
   source = "./eks_module"
-  region = "eu-east-1"
+  region = "us-east-1"
   dns_hostnames = true
   dns_support = true
   eks_version = "1.31"
-  ami_type = "AL2_x86_x64"
+  ami_type = "AL2_x86_64"
   capacity_type = "ON_DEMAND"
 }
 
