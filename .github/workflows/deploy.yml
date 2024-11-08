@@ -1,6 +1,8 @@
 name: Manifest Change
 
 on:
+  workflow_dispatch:
+    
   push:
     paths:
       - ./manifests/deployment.yaml
