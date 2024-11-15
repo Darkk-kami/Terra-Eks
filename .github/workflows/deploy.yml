@@ -2,10 +2,10 @@ name: Manifest Change
 
 on:
   workflow_dispatch:
-    
-  push:
-    paths:
-      - ./manifests/deployment.yaml
+
+#  push:
+#    paths:
+#      - ./manifests/deployment.yaml
 
 jobs:
   build-test:
