@@ -1,54 +1,13 @@
-variable "region" {
-}
-
-variable "tags" {
-  type = map(string)
-  default = {
-    name = "my_eks_cluster"
-  }
-  description = "The default tag for all resources"
-}
-
-variable "vpc_name" {
-  type = string
-  default = "eks_cluster_vpc"
-  description = "This is the default name for the eks cluster vpc"
-}
-
-variable "dns_support" {
-  type = string
-}
-
-variable "dns_hostnames" {
-  type = string
-}
-
-variable "cidr_block" {
-  description = "Default cidr block for the vpc"
-  type = string
-  default = "10.0.0.0/16"
-}
-
-variable "private_subnets" {
-  description = "Private subnets"
-  default = {
-    "private_subnet_1" = 0
-    "private_subnet_2" = 1
-  }
-}
-
-variable "public_subnets" {
-  description = "Public Subnets"
-  default = {
-    "public_subnet_1" = 0
-    "public_subnet_2" = 1
-  }
-}
-
 # EKS Build Variables
 variable "eks_version" {
   type = string
   description = "EKS Cluster Version"
+}
+
+variable "private_subnets" {
+}
+
+variable "public_subnets" {
 }
 
 variable "desired_size" {
@@ -94,4 +53,25 @@ variable "max_unavailable" {
   type = string
   default = 1
   description = "Maximum number of worker nodes unavailable"
+}
+
+variable "tags" {
+}
+
+variable "roles" {
+  type = object({
+    cluster_role              = string
+    worker_node_role          = string
+    eks_autoscaling_policy_arn = string
+  })
+}
+
+variable "attachments" {
+  # type = object({
+  #   cluster_role_policy_attachment = string
+  #   CNI_policy_attachment          = string
+  #   EC2CR_policy_attachment        = string
+  #   worker_node_role_policy_attach = string
+  #   EKSAutoScaling_policy_attachment = string
+  # })
 }

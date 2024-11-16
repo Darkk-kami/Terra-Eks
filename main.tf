@@ -1,5 +1,5 @@
 module "eks" {
-  source = "./eks_module"
+  source = "infrastructure"
   region = "us-east-1"
   dns_hostnames = true
   dns_support = true

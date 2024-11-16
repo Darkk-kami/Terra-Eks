@@ -5,6 +5,6 @@
 terraform.tfstate
 .terraform.tfstate.lock.info
 terraform.tfstate.backupdeployment_module/.terraform
-deployment_module/.terraform.lock.hcl
-deployment_module/terraform.tfstate
+application/.terraform.lock.hcl
+application/terraform.tfstate
 terraform.tfstate.backup
