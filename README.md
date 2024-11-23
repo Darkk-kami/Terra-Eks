@@ -23,4 +23,4 @@ cd cloud-infrastructure-terraform-eks
 ```
 
 ## Detailed Technical Documentation
-For more detailed technical documentation, including infrastructure design, security considerations, and step-by-step breakdowns of the Terraform scripts, please visit the (Technical Documentation)[https://github.com/Darkk-kami/Terra-Eks/wiki]
+For more detailed technical documentation, including infrastructure design, security considerations, and step-by-step breakdowns of the Terraform scripts, please visit the [Technical Documentation](https://github.com/Darkk-kami/Terra-Eks/wiki)
