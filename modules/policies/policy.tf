@@ -1,4 +1,4 @@
-# Resource for Cluster Role
+# IAM Role for EKS Cluster to assume
 resource "aws_iam_role" "cluster_role" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -6,7 +6,7 @@ resource "aws_iam_role" "cluster_role" {
       {
         Effect = "Allow"
         Principal = {
-          Service = "eks.amazonaws.com"
+          Service = "eks.amazonaws.com" 
         }
         Action = "sts:AssumeRole"
       }
@@ -14,6 +14,7 @@ resource "aws_iam_role" "cluster_role" {
   })
 }
 
+# IAM Role for Worker Nodes to assume
 resource "aws_iam_role" "worker_node_role" {
   name = "worker_node_role"
   assume_role_policy = jsonencode({
@@ -30,41 +31,38 @@ resource "aws_iam_role" "worker_node_role" {
   })
 }
 
-
-# IAM policy resource for Autoscaling
+# IAM Policy for EKS Autoscaling
 resource "aws_iam_policy" "eks_autoscaling_policy" {
-  name = "EksAutoScalingPolicy"
+  name   = "EksAutoScalingPolicy"
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "autoscaling:DescribeAutoScalingGroups",
-                "autoscaling:DescribeAutoScalingInstances",
-                "autoscaling:DescribeLaunchConfigurations",
-                "autoscaling:DescribeScalingActivities",
-                "autoscaling:DescribeTags",
-                "ec2:DescribeInstanceTypes",
-                "ec2:DescribeLaunchTemplateVersions"
-            ],
-            "Resource": [
-                "*"
-            ]
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "autoscaling:SetDesiredCapacity",
-                "autoscaling:TerminateInstanceInAutoScalingGroup",
-                "ec2:DescribeImages",
-                "ec2:GetInstanceTypesFromInstanceRequirements",
-                "eks:DescribeNodegroup"
-            ],
-            "Resource": [
-                "*"
-            ]
-        }
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect: "Allow",
+        Action: [
+          # Permissions to describe autoscaling resources
+          "autoscaling:DescribeAutoScalingGroups",
+          "autoscaling:DescribeAutoScalingInstances",
+          "autoscaling:DescribeLaunchConfigurations",
+          "autoscaling:DescribeScalingActivities",
+          "autoscaling:DescribeTags",
+          "ec2:DescribeInstanceTypes",
+          "ec2:DescribeLaunchTemplateVersions"
+        ],
+        Resource: ["*"]
+      },
+      {
+        Effect: "Allow",
+        Action: [
+          # Permissions to modify autoscaling settings and describe EKS nodegroups
+          "autoscaling:SetDesiredCapacity",
+          "autoscaling:TerminateInstanceInAutoScalingGroup",
+          "ec2:DescribeImages",
+          "ec2:GetInstanceTypesFromInstanceRequirements",
+          "eks:DescribeNodegroup"
+        ],
+        Resource: ["*"]
+      }
     ]
   })
 }
@@ -96,8 +94,3 @@ resource "aws_iam_role_policy_attachment" "EKSAutoScaling_policy_attachment" {
   policy_arn = aws_iam_policy.eks_autoscaling_policy.arn
   role       = aws_iam_role.worker_node_role.name
 }
-
-# resource "aws_s3_bucket_policy" "bucket_policy" {
-#   bucket = var.s3_bucket.id
-#   policy = ""
-# }

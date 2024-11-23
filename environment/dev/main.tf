@@ -1,10 +1,11 @@
 module "policies" {
   source = "../../modules/policies"
-  s3_bucket = module.storage.s3_bucket_name
 }
 
 module "storage" {
   source = "../../modules/storage"
+  vpc_endpoint = module.networks.vpc_endpoint
+  destination_bucket = "replication-bucket-89"
 }
 
 module "networks" {
@@ -14,10 +15,11 @@ module "networks" {
   tags = {
     name = "eks_cluster"
   }
+  region = var.region
 }
 
-module "compute" {
-  source = "../../modules/compute"
+module "cluster" {
+  source = "../../modules/cluster"
   tags = {
     name = "eks_cluster"
   }
@@ -29,3 +31,10 @@ module "compute" {
   roles       = module.policies.roles
   attachments = module.policies.attachments
 }
+
+
+# module "lambda" {
+#   source = "../../modules/lambda"
+#   aws_account_id = ""
+#   email = ""
+# }
